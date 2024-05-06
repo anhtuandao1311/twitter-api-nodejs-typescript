@@ -5,5 +5,7 @@ declare module 'express' {
   interface Request {
     decodedAccessToken?: TokenPayload
     decodedRefreshToken?: TokenPayload
+    decodedEmailVerifyToken?: TokenPayload
+    decodedForgotPasswordToken?: TokenPayload
   }
 }
