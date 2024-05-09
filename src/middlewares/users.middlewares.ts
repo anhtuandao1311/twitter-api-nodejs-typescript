@@ -1,9 +1,11 @@
 import { Request } from 'express'
 import { checkSchema } from 'express-validator'
 import { capitalize } from 'lodash'
+import { ObjectId } from 'mongodb'
 import { HTTP_STATUS } from '~/constants/httpStatus'
 import { USERS_MESSAGES } from '~/constants/messages'
-import { EntityError, ErrorWithStatus } from '~/models/Errors'
+import { REGEX_USERNAME } from '~/constants/regex'
+import { ErrorWithStatus } from '~/models/Errors'
 import { verifyToken } from '~/utils/jwt'
 import { validate } from '~/utils/validation'
 
@@ -391,6 +393,273 @@ export const resetPasswordValidator = validate(
               status: HTTP_STATUS.UNAUTHORIZED
             })
           }
+        }
+      }
+    }
+  })
+)
+
+export const updateMeValidator = validate(
+  checkSchema(
+    {
+      name: {
+        optional: true,
+        isString: {
+          errorMessage: USERS_MESSAGES.NAME_MUST_BE_A_STRING
+        },
+        isLength: {
+          errorMessage: USERS_MESSAGES.NAME_MUST_BE_BETWEEN_3_AND_50_CHARACTERS,
+          options: {
+            min: 3,
+            max: 50
+          }
+        },
+        trim: true
+      },
+      date_of_birth: {
+        optional: true,
+        isISO8601: {
+          errorMessage: USERS_MESSAGES.DATE_OF_BIRTH_MUST_BE_ISO_8601,
+          options: {
+            strict: true,
+            strictSeparator: true
+          }
+        }
+      },
+      bio: {
+        optional: true,
+        isString: {
+          errorMessage: USERS_MESSAGES.BIO_MUST_BE_A_STRING
+        },
+        isLength: {
+          errorMessage: USERS_MESSAGES.BIO_MUST_BE_BETWEEN_1_AND_160_CHARACTERS,
+          options: {
+            min: 1,
+            max: 160
+          }
+        },
+        trim: true
+      },
+      location: {
+        optional: true,
+        isString: {
+          errorMessage: USERS_MESSAGES.LOCATION_MUST_BE_A_STRING
+        },
+        isLength: {
+          errorMessage: USERS_MESSAGES.LOCATION_MUST_BE_BETWEEN_1_AND_50_CHARACTERS,
+          options: {
+            min: 1,
+            max: 50
+          }
+        },
+        trim: true
+      },
+      website: {
+        optional: true,
+        isString: {
+          errorMessage: USERS_MESSAGES.WEBSITE_MUST_BE_A_STRING
+        },
+        isURL: {
+          errorMessage: USERS_MESSAGES.WEBSITE_MUST_BE_A_VALID_URL
+        },
+        trim: true
+      },
+      username: {
+        optional: true,
+        isString: {
+          errorMessage: USERS_MESSAGES.USERNAME_MUST_BE_A_STRING
+        },
+        trim: true,
+        custom: {
+          options: (value: string) => {
+            if (!REGEX_USERNAME.test(value)) {
+              throw new Error(USERS_MESSAGES.USERNAME_IS_INVALID)
+            }
+            return true
+          }
+        }
+      },
+      avatar: {
+        optional: true,
+        isString: {
+          errorMessage: USERS_MESSAGES.AVATAR_MUST_BE_A_STRING
+        },
+        isURL: {
+          errorMessage: USERS_MESSAGES.AVATAR_MUST_BE_A_VALID_URL
+        },
+        trim: true
+      },
+      cover_photo: {
+        optional: true,
+        isString: {
+          errorMessage: USERS_MESSAGES.COVER_PHOTO_MUST_BE_A_STRING
+        },
+        isURL: {
+          errorMessage: USERS_MESSAGES.COVER_PHOTO_MUST_BE_A_VALID_URL
+        },
+        trim: true
+      }
+    },
+    ['body']
+  )
+)
+
+export const followValidator = validate(
+  checkSchema(
+    {
+      followed_user_id: {
+        custom: {
+          options: (value: string) => {
+            if (!value) {
+              throw new ErrorWithStatus({
+                message: USERS_MESSAGES.FOLLOWED_USER_ID_IS_REQUIRED,
+                status: HTTP_STATUS.BAD_REQUEST
+              })
+            }
+            if (typeof value !== 'string') {
+              throw new ErrorWithStatus({
+                message: USERS_MESSAGES.FOLLOWED_USER_ID_MUST_BE_A_STRING,
+                status: HTTP_STATUS.BAD_REQUEST
+              })
+            }
+            if (!ObjectId.isValid(value)) {
+              throw new ErrorWithStatus({
+                message: USERS_MESSAGES.FOLLOWED_USER_ID_MUST_BE_A_VALID_ID,
+                status: HTTP_STATUS.BAD_REQUEST
+              })
+            }
+            return true
+          }
+        }
+      }
+    },
+    ['body']
+  )
+)
+
+export const unfollowValidator = validate(
+  checkSchema(
+    {
+      followed_user_id: {
+        custom: {
+          options: (value: string) => {
+            if (!value) {
+              throw new ErrorWithStatus({
+                message: USERS_MESSAGES.FOLLOWED_USER_ID_IS_REQUIRED,
+                status: HTTP_STATUS.BAD_REQUEST
+              })
+            }
+            if (typeof value !== 'string') {
+              throw new ErrorWithStatus({
+                message: USERS_MESSAGES.FOLLOWED_USER_ID_MUST_BE_A_STRING,
+                status: HTTP_STATUS.BAD_REQUEST
+              })
+            }
+            if (!ObjectId.isValid(value)) {
+              throw new ErrorWithStatus({
+                message: USERS_MESSAGES.FOLLOWED_USER_ID_MUST_BE_A_VALID_ID,
+                status: HTTP_STATUS.BAD_REQUEST
+              })
+            }
+            return true
+          }
+        }
+      }
+    },
+    ['params']
+  )
+)
+
+export const changePasswordValidator = validate(
+  checkSchema({
+    password: {
+      notEmpty: {
+        errorMessage: USERS_MESSAGES.PASSWORD_IS_REQUIRED
+      },
+      isString: {
+        errorMessage: USERS_MESSAGES.PASSWORD_MUST_BE_A_STRING
+      },
+      isLength: {
+        errorMessage: USERS_MESSAGES.PASSWORD_MUST_BE_BETWEEN_6_AND_30_CHARACTERS,
+        options: {
+          min: 6,
+          max: 30
+        }
+      },
+      isStrongPassword: {
+        errorMessage: USERS_MESSAGES.PASSWORD_MUST_BE_STRONG,
+        options: {
+          minLength: 6,
+          minLowercase: 1,
+          minUppercase: 1,
+          minNumbers: 1,
+          minSymbols: 1
+        }
+      }
+    },
+    new_password: {
+      notEmpty: {
+        errorMessage: USERS_MESSAGES.NEW_PASSWORD_IS_REQUIRED
+      },
+      isString: {
+        errorMessage: USERS_MESSAGES.NEW_PASSWORD_MUST_BE_A_STRING
+      },
+      isLength: {
+        errorMessage: USERS_MESSAGES.NEW_PASSWORD_MUST_BE_BETWEEN_6_AND_30_CHARACTERS,
+        options: {
+          min: 6,
+          max: 30
+        }
+      },
+      isStrongPassword: {
+        errorMessage: USERS_MESSAGES.NEW_PASSWORD_MUST_BE_STRONG,
+        options: {
+          minLength: 6,
+          minLowercase: 1,
+          minUppercase: 1,
+          minNumbers: 1,
+          minSymbols: 1
+        }
+      },
+      custom: {
+        options: (value: string, { req }) => {
+          if (value === req.body.password) {
+            throw new Error(USERS_MESSAGES.NEW_PASSWORD_MUST_BE_DIFFERENT)
+          }
+          return true
+        }
+      }
+    },
+    confirm_new_password: {
+      notEmpty: {
+        errorMessage: USERS_MESSAGES.CONFIRM_PASSWORD_IS_REQUIRED
+      },
+      isString: {
+        errorMessage: USERS_MESSAGES.CONFIRM_PASSWORD_MUST_BE_A_STRING
+      },
+      isLength: {
+        errorMessage: USERS_MESSAGES.CONFIRM_PASSWORD_MUST_BE_BETWEEN_6_AND_30_CHARACTERS,
+        options: {
+          min: 6,
+          max: 30
+        }
+      },
+      isStrongPassword: {
+        errorMessage: USERS_MESSAGES.CONFIRM_PASSWORD_MUST_BE_STRONG,
+        options: {
+          minLength: 6,
+          minLowercase: 1,
+          minUppercase: 1,
+          minNumbers: 1,
+          minSymbols: 1
+        }
+      },
+      custom: {
+        options: (value: string, { req }) => {
+          if (value !== req.body.new_password) {
+            throw new Error(USERS_MESSAGES.PASSWORDS_DO_NOT_MATCH)
+          }
+          return true
         }
       }
     }

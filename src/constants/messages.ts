@@ -39,5 +39,49 @@ export const USERS_MESSAGES = {
   FORGOT_PASSWORD_TOKEN_IS_INVALID: 'Forgot password token is invalid',
   FORGOT_PASSWORD_TOKEN_IS_VALID: 'Forgot password token is valid',
   PASSWORD_RESET_SUCCESSFULLY: 'Password reset successfully',
-  GET_ME_SUCCESSFULLY: 'Get profile successfully'
+  GET_ME_SUCCESSFULLY: 'Get profile successfully',
+  USER_IS_NOT_VERIFIED: 'User is not verified',
+  BIO_MUST_BE_A_STRING: 'Bio must be a string',
+  BIO_MUST_BE_BETWEEN_1_AND_160_CHARACTERS: 'Bio must be between 1 and 160 characters',
+  LOCATION_MUST_BE_A_STRING: 'Location must be a string',
+  LOCATION_MUST_BE_BETWEEN_1_AND_50_CHARACTERS: 'Location must be between 1 and 50 characters',
+  WEBSITE_MUST_BE_A_STRING: 'Website must be a string',
+  WEBSITE_MUST_BE_A_VALID_URL: 'Website must be a valid URL',
+  USERNAME_MUST_BE_A_STRING: 'Username must be a string',
+  USERNAME_IS_INVALID:
+    'Username must be between 4 and 15 characters, can only contain letters, numbers, underscores and cannot be full of numbers',
+  USERNAME_ALREADY_EXISTS: 'Username already exists',
+  AVATAR_MUST_BE_A_STRING: 'Avatar must be a string',
+  AVATAR_MUST_BE_A_VALID_URL: 'Avatar must be a valid URL',
+  COVER_PHOTO_MUST_BE_A_STRING: 'Cover photo must be a string',
+  COVER_PHOTO_MUST_BE_A_VALID_URL: 'Cover photo must be a valid URL',
+  UPDATE_ME_SUCCESSFULLY: 'Update profile successfully',
+  GET_USER_PROFILE_SUCCESSFULLY: 'Get user profile successfully',
+  FOLLOWED_USER_ID_IS_REQUIRED: 'Followed user ID is required',
+  FOLLOWED_USER_ID_MUST_BE_A_STRING: 'Followed user ID must be a string',
+  FOLLOWED_USER_ID_MUST_BE_A_VALID_ID: 'Followed user ID must be a valid ID',
+  FOLLOWED_USER_SUCCESSFULLY: 'Followed user successfully',
+  USER_ALREADY_FOLLOWED: 'User already followed',
+  USER_NOT_FOLLOWED: 'User not followed',
+  UNFOLLOWED_USER_SUCCESSFULLY: 'Unfollowed user successfully',
+  NEW_PASSWORD_IS_REQUIRED: 'New password is required',
+  NEW_PASSWORD_MUST_BE_A_STRING: 'New password must be a string',
+  NEW_PASSWORD_MUST_BE_BETWEEN_6_AND_30_CHARACTERS: 'New password must be between 6 and 30 characters',
+  NEW_PASSWORD_MUST_BE_STRONG:
+    'New password must contain at least 6 characters, 1 lowercase, 1 uppercase, 1 number, and 1 symbol',
+  OLD_PASSWORD_IS_INCORRECT: 'Old password is incorrect',
+  NEW_PASSWORD_MUST_BE_DIFFERENT: 'New password must be different from old password',
+  PASSWORD_CHANGED_SUCCESSFULLY: 'Password changed successfully',
+  EMAIL_IS_NOT_VERIFIED: 'Email is not verified',
+  REFRESH_TOKEN_SUCCESSFULLY: 'Refresh token successfully'
+} as const
+
+export const MEDIA_MESSAGES = {
+  IMAGE_IS_REQUIRED: 'Image is required',
+  INVALID_FILE_TYPE: 'Invalid file type',
+  MAXIMUM_FILE_SIZE_EXCEEDED: 'Maximum file size exceeded',
+  MAXIMUM_NUMBER_OF_FILES_EXCEEDED: 'Maximum number of files exceeded',
+  IMAGE_UPLOADED_SUCCESSFULLY: 'Image uploaded successfully',
+  VIDEO_IS_REQUIRED: 'Video is required',
+  VIDEO_UPLOADED_SUCCESSFULLY: 'Video uploaded successfully'
 } as const
