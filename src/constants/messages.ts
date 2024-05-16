@@ -85,3 +85,33 @@ export const MEDIA_MESSAGES = {
   VIDEO_IS_REQUIRED: 'Video is required',
   VIDEO_UPLOADED_SUCCESSFULLY: 'Video uploaded successfully'
 } as const
+
+export const TWEETS_MESSAGES = {
+  INVALID_TYPE: 'Invalid type',
+  INVALID_AUDIENCE: 'Invalid audience',
+  PARENT_ID_MUST_BE_A_VALID_ID: 'Parent ID must be a valid ID',
+  PARENT_ID_MUST_BE_NULL_FOR_ORIGINAL_TWEET: 'Parent ID must be null for original tweet',
+  CONTENT_MUST_BE_A_STRING: 'Content must be a string',
+  RETWEET_DOES_NOT_HAVE_CONTENT: 'Retweet does not have content',
+  HASHTAGS_MUST_BE_ARRAY_OF_STRING: 'Hashtags must be an array of strings',
+  MENTIONS_MUST_BE_ARRAY_OF_ID: 'Mentions must be an array of ID',
+  MEDIA_MUST_BE_AN_ARRAY_OF_MEDIA_OBJECT: 'Media must be an array of media object',
+  RETWEET_DOES_NOT_HAVE_MEDIA: 'Retweet does not have media',
+  TWEET_CREATED_SUCCESSFULLY: 'Tweet created successfully',
+  TWEET_NOT_FOUND: 'Tweet not found',
+  TWEET_IS_NOT_PUBLIC: 'Tweet is not public',
+  GET_TWEET_SUCCESSFULLY: 'Get tweet successfully',
+  GET_NEWS_FEED_SUCCESSFULLY: 'Get news feed successfully',
+  SEARCH_TWEETS_SUCCESSFULLY: 'Search tweets successfully',
+  MEDIA_TYPE_MUST_BE_IMAGE_OR_VIDEO: 'Media type must be image or video'
+}
+
+export const BOOKMARKS_MESSAGES = {
+  BOOKMARK_CREATED_SUCCESSFULLY: 'Bookmark created successfully',
+  TWEET_ID_IS_REQUIRED: 'Tweet ID is required',
+  TWEET_ID_MUST_BE_A_STRING: 'Tweet ID must be a string',
+  TWEET_ID_MUST_BE_A_VALID_ID: 'Tweet ID must be a valid ID',
+  BOOKMARK_ALREADY_EXISTS: 'Bookmark already exists',
+  BOOKMARK_NOT_FOUND: 'Bookmark not found',
+  BOOKMARK_DELETED_SUCCESSFULLY: 'Bookmark deleted successfully'
+}

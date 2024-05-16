@@ -1,4 +1,4 @@
-import { Request } from 'express'
+import { NextFunction, Request, Response } from 'express'
 import { checkSchema } from 'express-validator'
 import { capitalize } from 'lodash'
 import { ObjectId } from 'mongodb'
@@ -665,3 +665,12 @@ export const changePasswordValidator = validate(
     }
   })
 )
+
+export const isLoggedInValidator = (middleware: (req: Request, res: Response, next: NextFunction) => void) => {
+  return (req: Request, res: Response, next: NextFunction) => {
+    if (req.headers.authorization) {
+      return middleware(req, res, next)
+    }
+    return next()
+  }
+}

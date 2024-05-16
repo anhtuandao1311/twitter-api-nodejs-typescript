@@ -2,6 +2,9 @@ import { Collection, Db, MongoClient } from 'mongodb'
 import User from '~/models/schemas/User.schema'
 import RefreshToken from '~/models/schemas/RefreshToken.schema'
 import Follower from '~/models/schemas/Follower.schema'
+import Tweet from '~/models/schemas/Tweet.schema'
+import { Hashtag } from '~/models/schemas/Hashtag.schema'
+import { Bookmark } from '~/models/schemas/Bookmark.schema'
 const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@twitter-api.mzdnixp.mongodb.net/?retryWrites=true&w=majority&appName=twitter-api`
 
 class DatabaseService {
@@ -34,6 +37,18 @@ class DatabaseService {
     return this.db.collection('followers')
   }
 
+  get tweets(): Collection<Tweet> {
+    return this.db.collection('tweets')
+  }
+
+  get hashtags(): Collection<Hashtag> {
+    return this.db.collection('hashtags')
+  }
+
+  get bookmarks(): Collection<Bookmark> {
+    return this.db.collection('bookmarks')
+  }
+
   async generateUsersIndexes() {
     const isExistingIndexes = await this.users.indexExists(['email_1', 'username_1', 'email_1_password_1'])
     if (!isExistingIndexes) {
@@ -60,6 +75,13 @@ class DatabaseService {
     const isExistingIndexes = await this.followers.indexExists(['user_id_1_followed_user_id_1'])
     if (!isExistingIndexes) {
       this.followers.createIndex({ user_id: 1, followed_user_id: 1 }, { unique: true })
+    }
+  }
+
+  async generateTweetsIndexes() {
+    const isExistingIndexes = await this.tweets.indexExists(['content_text'])
+    if (!isExistingIndexes) {
+      this.tweets.createIndex({ content: 'text' }, { default_language: 'none' })
     }
   }
 }
