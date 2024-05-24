@@ -15,6 +15,7 @@ export const searchController = async (req: Request, res: Response) => {
     message: TWEETS_MESSAGES.SEARCH_TWEETS_SUCCESSFULLY,
     data: {
       tweets: result.tweets,
+      q: q,
       limit: limit,
       page: page,
       total_page: Math.ceil(result.total / limit)

@@ -20,9 +20,9 @@ export const USERS_MESSAGES = {
   DATE_OF_BIRTH_IS_REQUIRED: 'Date of birth is required',
   DATE_OF_BIRTH_MUST_BE_ISO_8601: 'Date of birth must be in ISO 8601 format',
   EMAIL_OR_PASSWORD_IS_INCORRECT: 'Email or password is incorrect',
-  REGISTERED_SUCCESSFULLY: 'Registered successfully',
-  LOGGED_IN_SUCCESSFULLY: 'Logged in successfully',
-  LOGGED_OUT_SUCCESSFULLY: 'Logged out successfully',
+  REGISTERED_SUCCESSFULLY: 'Register successfully',
+  LOGGED_IN_SUCCESSFULLY: 'Log in successfully',
+  LOGGED_OUT_SUCCESSFULLY: 'Log out successfully',
   ACCESS_TOKEN_IS_REQUIRED: 'Access token is required',
   ACCESS_TOKEN_IS_INVALID: 'Access token is invalid',
   REFRESH_TOKEN_IS_REQUIRED: 'Refresh token is required',
@@ -32,13 +32,13 @@ export const USERS_MESSAGES = {
   EMAIL_VERIFY_TOKEN_IS_INVALID: 'Email verify token is invalid',
   USER_NOT_FOUND: 'User not found',
   EMAIL_ALREADY_VERIFIED: 'Email already verified',
-  EMAIL_VERIFIED_SUCCESSFULLY: 'Email verified successfully',
-  RESENT_EMAIL_VERIFY_SUCCESSFULLY: 'Resent email successfully',
-  FORGOT_PASSWORD_EMAIL_SENT_SUCCESSFULLY: 'Forgot password email sent successfully',
+  EMAIL_VERIFIED_SUCCESSFULLY: 'Verify email successfully',
+  RESENT_EMAIL_VERIFY_SUCCESSFULLY: 'Resend verify email successfully',
+  FORGOT_PASSWORD_EMAIL_SENT_SUCCESSFULLY: 'Send forgot password email successfully',
   FORGOT_PASSWORD_TOKEN_IS_REQUIRED: 'Forgot password token is required',
   FORGOT_PASSWORD_TOKEN_IS_INVALID: 'Forgot password token is invalid',
   FORGOT_PASSWORD_TOKEN_IS_VALID: 'Forgot password token is valid',
-  PASSWORD_RESET_SUCCESSFULLY: 'Password reset successfully',
+  PASSWORD_RESET_SUCCESSFULLY: 'Reset password successfully',
   GET_ME_SUCCESSFULLY: 'Get profile successfully',
   USER_IS_NOT_VERIFIED: 'User is not verified',
   BIO_MUST_BE_A_STRING: 'Bio must be a string',
@@ -60,10 +60,10 @@ export const USERS_MESSAGES = {
   FOLLOWED_USER_ID_IS_REQUIRED: 'Followed user ID is required',
   FOLLOWED_USER_ID_MUST_BE_A_STRING: 'Followed user ID must be a string',
   FOLLOWED_USER_ID_MUST_BE_A_VALID_ID: 'Followed user ID must be a valid ID',
-  FOLLOWED_USER_SUCCESSFULLY: 'Followed user successfully',
+  FOLLOWED_USER_SUCCESSFULLY: 'Follow user successfully',
   USER_ALREADY_FOLLOWED: 'User already followed',
   USER_NOT_FOLLOWED: 'User not followed',
-  UNFOLLOWED_USER_SUCCESSFULLY: 'Unfollowed user successfully',
+  UNFOLLOWED_USER_SUCCESSFULLY: 'Unfollow user successfully',
   NEW_PASSWORD_IS_REQUIRED: 'New password is required',
   NEW_PASSWORD_MUST_BE_A_STRING: 'New password must be a string',
   NEW_PASSWORD_MUST_BE_BETWEEN_6_AND_30_CHARACTERS: 'New password must be between 6 and 30 characters',
@@ -71,9 +71,10 @@ export const USERS_MESSAGES = {
     'New password must contain at least 6 characters, 1 lowercase, 1 uppercase, 1 number, and 1 symbol',
   OLD_PASSWORD_IS_INCORRECT: 'Old password is incorrect',
   NEW_PASSWORD_MUST_BE_DIFFERENT: 'New password must be different from old password',
-  PASSWORD_CHANGED_SUCCESSFULLY: 'Password changed successfully',
+  PASSWORD_CHANGED_SUCCESSFULLY: 'Change password successfully',
   EMAIL_IS_NOT_VERIFIED: 'Email is not verified',
-  REFRESH_TOKEN_SUCCESSFULLY: 'Refresh token successfully'
+  REFRESH_TOKEN_SUCCESSFULLY: 'Refresh token successfully',
+  USERNAME_IS_REQUIRED: 'Username is required'
 } as const
 
 export const MEDIA_MESSAGES = {
@@ -81,9 +82,9 @@ export const MEDIA_MESSAGES = {
   INVALID_FILE_TYPE: 'Invalid file type',
   MAXIMUM_FILE_SIZE_EXCEEDED: 'Maximum file size exceeded',
   MAXIMUM_NUMBER_OF_FILES_EXCEEDED: 'Maximum number of files exceeded',
-  IMAGE_UPLOADED_SUCCESSFULLY: 'Image uploaded successfully',
+  IMAGE_UPLOADED_SUCCESSFULLY: 'Upload image(s) successfully',
   VIDEO_IS_REQUIRED: 'Video is required',
-  VIDEO_UPLOADED_SUCCESSFULLY: 'Video uploaded successfully'
+  VIDEO_UPLOADED_SUCCESSFULLY: 'Upload video successfully'
 } as const
 
 export const TWEETS_MESSAGES = {
@@ -97,21 +98,28 @@ export const TWEETS_MESSAGES = {
   MENTIONS_MUST_BE_ARRAY_OF_ID: 'Mentions must be an array of ID',
   MEDIA_MUST_BE_AN_ARRAY_OF_MEDIA_OBJECT: 'Media must be an array of media object',
   RETWEET_DOES_NOT_HAVE_MEDIA: 'Retweet does not have media',
-  TWEET_CREATED_SUCCESSFULLY: 'Tweet created successfully',
+  TWEET_CREATED_SUCCESSFULLY: 'Create tweet successfully',
   TWEET_NOT_FOUND: 'Tweet not found',
   TWEET_IS_NOT_PUBLIC: 'Tweet is not public',
   GET_TWEET_SUCCESSFULLY: 'Get tweet successfully',
-  GET_NEWS_FEED_SUCCESSFULLY: 'Get news feed successfully',
+  GET_NEWS_FEED_SUCCESSFULLY: 'Get newsfeed successfully',
   SEARCH_TWEETS_SUCCESSFULLY: 'Search tweets successfully',
   MEDIA_TYPE_MUST_BE_IMAGE_OR_VIDEO: 'Media type must be image or video'
 }
 
 export const BOOKMARKS_MESSAGES = {
-  BOOKMARK_CREATED_SUCCESSFULLY: 'Bookmark created successfully',
+  BOOKMARK_CREATED_SUCCESSFULLY: 'Create bookmark successfully',
   TWEET_ID_IS_REQUIRED: 'Tweet ID is required',
   TWEET_ID_MUST_BE_A_STRING: 'Tweet ID must be a string',
   TWEET_ID_MUST_BE_A_VALID_ID: 'Tweet ID must be a valid ID',
   BOOKMARK_ALREADY_EXISTS: 'Bookmark already exists',
   BOOKMARK_NOT_FOUND: 'Bookmark not found',
-  BOOKMARK_DELETED_SUCCESSFULLY: 'Bookmark deleted successfully'
+  BOOKMARK_DELETED_SUCCESSFULLY: 'Unbookmark tweet successfully'
+}
+
+export const CONVERSATIONS_MESSAGES = {
+  GET_CONVERSATIONS_SUCCESSFULLY: 'Get conversations successfully',
+  RECEIVER_ID_IS_REQUIRED: 'Receiver ID is required',
+  RECEIVER_ID_MUST_BE_A_STRING: 'Receiver ID must be a string',
+  RECEIVER_ID_MUST_BE_A_VALID_ID: 'Receiver ID must be a valid ID'
 }

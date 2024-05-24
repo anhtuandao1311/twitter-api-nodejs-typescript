@@ -21,15 +21,15 @@ export const getTweetController = async (req: Request, res: Response) => {
   const result = await tweetsService.getTweet(tweetId, userId)
   return res.status(HTTP_STATUS.OK).json({
     message: TWEETS_MESSAGES.GET_TWEET_SUCCESSFULLY,
-    data: result
+    data: { tweet: result }
   })
 }
 
 export const getChildTweetsController = async (req: Request, res: Response) => {
   const { tweet_id: tweetId } = req.params
   const { limit, page, type } = req.query
-  let limitNumber = Number(limit)
-  let pageNumber = Number(page)
+  const limitNumber = Number(limit)
+  const pageNumber = Number(page)
   let userId = ''
   if (req.decodedAccessToken) {
     userId = req.decodedAccessToken.user_id

@@ -22,6 +22,7 @@ import RefreshToken from '~/models/schemas/RefreshToken.schema'
 import User from '~/models/schemas/User.schema'
 import databaseService from '~/services/database.services'
 import { hashPassword } from '~/utils/crypto'
+import { sendForgotPasswordTemplate, sendVerifyEmailTemplate } from '~/utils/ses'
 import { signToken, verifyToken } from '~/utils/jwt'
 
 class UsersService {
@@ -64,6 +65,8 @@ class UsersService {
     const { iat, exp } = await this.decodeRefreshToken(refreshToken)
 
     await databaseService.refreshTokens.insertOne(new RefreshToken({ user_id: userId, token: refreshToken, iat, exp }))
+
+    await sendVerifyEmailTemplate(payload.email, emailVerifyToken)
 
     return {
       accessToken,
@@ -194,7 +197,6 @@ class UsersService {
     })
 
     // update the email_verify_token field in the user document
-
     await databaseService.users.updateOne(
       { _id: new ObjectId(userId) },
       {
@@ -204,6 +206,8 @@ class UsersService {
         }
       }
     )
+
+    await sendVerifyEmailTemplate(user.email, emailVerifyToken)
 
     return {
       message: USERS_MESSAGES.RESENT_EMAIL_VERIFY_SUCCESSFULLY
@@ -238,6 +242,7 @@ class UsersService {
     )
 
     // send an email with a link to reset the password
+    await sendForgotPasswordTemplate(email, forgotPasswordToken)
 
     return {
       message: USERS_MESSAGES.FORGOT_PASSWORD_EMAIL_SENT_SUCCESSFULLY
@@ -313,10 +318,7 @@ class UsersService {
         status: HTTP_STATUS.NOT_FOUND
       })
     }
-    return {
-      message: USERS_MESSAGES.GET_ME_SUCCESSFULLY,
-      user
-    }
+    return user
   }
 
   async updateMe(payload: UpdateMeReqBody, userId: string, verify: UserVerifyStatus) {
@@ -370,7 +372,8 @@ class UsersService {
           forgot_password_token: 0,
           verify: 0,
           created_at: 0,
-          updated_at: 0
+          updated_at: 0,
+          twitter_circle: 0
         }
       }
     )
@@ -380,6 +383,8 @@ class UsersService {
         status: HTTP_STATUS.NOT_FOUND
       })
     }
+
+    return user
   }
 
   async follow(payload: FollowReqBody, userId: string, verify: UserVerifyStatus) {

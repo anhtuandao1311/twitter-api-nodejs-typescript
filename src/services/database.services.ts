@@ -5,6 +5,7 @@ import Follower from '~/models/schemas/Follower.schema'
 import Tweet from '~/models/schemas/Tweet.schema'
 import { Hashtag } from '~/models/schemas/Hashtag.schema'
 import { Bookmark } from '~/models/schemas/Bookmark.schema'
+import Conversation from '~/models/schemas/Conversation.schema'
 const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@twitter-api.mzdnixp.mongodb.net/?retryWrites=true&w=majority&appName=twitter-api`
 
 class DatabaseService {
@@ -47,6 +48,10 @@ class DatabaseService {
 
   get bookmarks(): Collection<Bookmark> {
     return this.db.collection('bookmarks')
+  }
+
+  get conversations(): Collection<Conversation> {
+    return this.db.collection('conversations')
   }
 
   async generateUsersIndexes() {

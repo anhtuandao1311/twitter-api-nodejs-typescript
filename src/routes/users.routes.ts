@@ -1,6 +1,7 @@
 import {
   changePasswordValidator,
   followValidator,
+  getProfileValidator,
   unfollowValidator,
   updateMeValidator
 } from './../middlewares/users.middlewares'
@@ -39,9 +40,9 @@ import { UpdateMeReqBody } from '~/models/requests/User.requests'
 
 const usersRouter = Router()
 
-usersRouter.post('/login', loginValidator, wrapRequestHandler(loginController))
-
 usersRouter.post('/register', registerValidator, wrapRequestHandler(registerController))
+
+usersRouter.post('/login', loginValidator, wrapRequestHandler(loginController))
 
 usersRouter.post('/logout', accessTokenValidator, refreshTokenValidator, wrapRequestHandler(logoutController))
 
@@ -78,7 +79,7 @@ usersRouter.patch(
   wrapRequestHandler(updateMeController)
 )
 
-usersRouter.get('/:username', wrapRequestHandler(getProfileController))
+usersRouter.get('/:username', getProfileValidator, wrapRequestHandler(getProfileController))
 
 usersRouter.post('/follow', accessTokenValidator, followValidator, wrapRequestHandler(followController))
 

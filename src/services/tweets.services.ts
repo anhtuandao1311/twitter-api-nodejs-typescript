@@ -145,6 +145,8 @@ class TweetsService {
       ])
       .toArray()
 
+    console.log(tweet)
+
     if (!tweet) {
       throw new ErrorWithStatus({
         message: TWEETS_MESSAGES.TWEET_NOT_FOUND,
@@ -178,7 +180,7 @@ class TweetsService {
       }
     }
     const inc = isLoggedIn ? { user_views: 1 } : { guest_views: 1 }
-    const tweetAfterIncreaseView = await databaseService.tweets.findOneAndUpdate(
+    await databaseService.tweets.findOneAndUpdate(
       {
         _id: new ObjectId(tweetId)
       },
@@ -192,7 +194,8 @@ class TweetsService {
         returnDocument: 'after'
       }
     )
-    return tweetAfterIncreaseView
+
+    return tweet
   }
 
   async getChildTweets({

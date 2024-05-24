@@ -1,15 +1,16 @@
 import { File } from 'formidable'
 import path from 'path'
 import sharp from 'sharp'
-import { UPLOAD_IMAGE_DIR, UPLOAD_VIDEO_DIR } from '~/constants/dir'
+import { UPLOAD_IMAGE_DIR } from '~/constants/dir'
 import { getFileNameWithoutExtension } from '~/utils/file'
 import fs from 'fs'
-import { isProduction } from '~/constants/config'
 import { MediaType, UserVerifyStatus } from '~/constants/enums'
 import { Media } from '~/models/Other'
 import { ErrorWithStatus } from '~/models/Errors'
 import { USERS_MESSAGES } from '~/constants/messages'
 import { HTTP_STATUS } from '~/constants/httpStatus'
+import { uploadFileToS3 } from '~/utils/s3'
+import mime from 'mime'
 
 class MediaService {
   async uploadImage(files: File[], verify: UserVerifyStatus) {
@@ -26,12 +27,17 @@ class MediaService {
 
         sharp.cache(false)
         await sharp(file.filepath).jpeg().toFile(savePath)
+
+        const uploadResult = await uploadFileToS3({
+          filename: 'images/' + `${newFileName}.jpg`,
+          filepath: savePath,
+          contentType: mime.getType(savePath) as string
+        })
         fs.unlinkSync(file.filepath)
+        fs.unlinkSync(savePath)
 
         return {
-          url: isProduction
-            ? `${process.env.HOST}/static/images/${newFileName}.jpg`
-            : `http://localhost:${process.env.PORT}/static/images/${newFileName}.jpg`,
+          url: uploadResult.Location as string,
           type: MediaType.Image
         }
       })
@@ -48,13 +54,15 @@ class MediaService {
       })
     }
 
-    const savePath = path.resolve(UPLOAD_VIDEO_DIR, file.newFilename)
-    fs.renameSync(file.filepath, savePath)
+    const uploadResult = await uploadFileToS3({
+      filename: 'videos/' + file.newFilename,
+      filepath: file.filepath,
+      contentType: mime.getType(file.filepath) as string
+    })
+    fs.unlinkSync(file.filepath)
 
     return {
-      url: isProduction
-        ? `${process.env.HOST}/static/videos/${file.newFilename}`
-        : `http://localhost:${process.env.PORT}/static/videos/${file.newFilename}`,
+      url: uploadResult.Location as string,
       type: MediaType.Video
     }
   }

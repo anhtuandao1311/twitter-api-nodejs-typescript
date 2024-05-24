@@ -504,6 +504,33 @@ export const updateMeValidator = validate(
   )
 )
 
+export const getProfileValidator = validate(
+  checkSchema(
+    {
+      username: {
+        custom: {
+          options: (value: string) => {
+            if (!value) {
+              throw new ErrorWithStatus({
+                message: USERS_MESSAGES.USERNAME_IS_REQUIRED,
+                status: HTTP_STATUS.BAD_REQUEST
+              })
+            }
+            if (typeof value !== 'string') {
+              throw new ErrorWithStatus({
+                message: USERS_MESSAGES.USERNAME_MUST_BE_A_STRING,
+                status: HTTP_STATUS.BAD_REQUEST
+              })
+            }
+            return true
+          }
+        }
+      }
+    },
+    ['params']
+  )
+)
+
 export const followValidator = validate(
   checkSchema(
     {

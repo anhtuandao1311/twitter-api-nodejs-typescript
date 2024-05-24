@@ -53,7 +53,7 @@ export const emailVerifyController = async (req: Request<ParamsDictionary, any, 
   return res.status(HTTP_STATUS.OK).json(result)
 }
 
-export const resendEmailVerifyController = async (req: Request<ParamsDictionary, any, {}>, res: Response) => {
+export const resendEmailVerifyController = async (req: Request, res: Response) => {
   const { user_id: userId } = req.decodedAccessToken as TokenPayload
   const result = await usersService.resendVerifyEmail(userId)
   return res.status(HTTP_STATUS.OK).json(result)
@@ -88,7 +88,10 @@ export const resetPasswordController = async (
 export const getMeController = async (req: Request, res: Response) => {
   const { user_id: userId } = req.decodedAccessToken as TokenPayload
   const result = await usersService.getMe(userId)
-  return res.status(HTTP_STATUS.OK).json(result)
+  return res.status(HTTP_STATUS.OK).json({
+    message: USERS_MESSAGES.GET_ME_SUCCESSFULLY,
+    data: { user: result }
+  })
 }
 
 export const updateMeController = async (req: Request<ParamsDictionary, any, UpdateMeReqBody>, res: Response) => {
