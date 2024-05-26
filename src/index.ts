@@ -48,7 +48,7 @@ databaseService.connect().then(() => {
 // create upload folder
 initUploadFolder()
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 app.use('/users', usersRouter)
 app.use('/media', mediaRouter)
 app.use('/tweets', tweetsRouter)
@@ -64,5 +64,5 @@ app.use(defaultErrorHandler)
 initSocket(httpServer)
 
 httpServer.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`)
+  console.log(`Server is running on port ${PORT}`)
 })

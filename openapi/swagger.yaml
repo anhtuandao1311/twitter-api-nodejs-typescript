@@ -5,7 +5,7 @@ info:
     This is a Twitter API clone with Node.js and TypeScript developed by Dao Anh Tuan. This API is built with Express.js, MongoDB, and TypeScript. The API provides functionalities such as user authentication, tweet creation, tweet interaction, media upload, bookmark, search, and chat conversation. For more information, please visit my [github repository](https://github.com/anhtuandao1311/twitter-api-nodejs-typescript) or contact me via email: <anhtuandao131102@gmail.com>. Thank you for your interest in my project 😊.
   version: 1.0.0
 servers:
-  - url: http://localhost:4000
+  - url: https://twitter-api-nodejs-typescript-daoanhtuan.online
 tags:
   - name: users
     description: APIs related to users
