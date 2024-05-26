@@ -36,4 +36,5 @@ jobs:
             docker pull atd1311/twitter-clone:v0
             docker stop twitter-clone
             docker rm twitter-clone
+            docker image prune -f
             docker run -dp 4000:4000 --name twitter-clone --restart unless-stopped atd1311/twitter-clone:v0

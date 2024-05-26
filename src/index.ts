@@ -48,7 +48,6 @@ databaseService.connect().then(() => {
 // create upload folder
 initUploadFolder()
 
-app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 app.use('/users', usersRouter)
 app.use('/media', mediaRouter)
 app.use('/tweets', tweetsRouter)
@@ -58,6 +57,7 @@ app.use('/conversations', conversationRouter)
 
 app.use('/static/images', express.static(UPLOAD_IMAGE_DIR))
 app.use('/static/videos', express.static(UPLOAD_VIDEO_DIR))
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 app.use(defaultErrorHandler)
 
 // init socket
